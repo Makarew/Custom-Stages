@@ -1,19 +1,19 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using CustomStages;
+using diorama;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(Plugin), "Custom Stages", "1.0.0", "Makarew")]
+[assembly: MelonInfo(typeof(Plugin), "diorama", "1.0.0", "Makarew")]
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CustomStages")]
+[assembly: AssemblyTitle("diorama")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CustomStages")]
+[assembly: AssemblyProduct("diorama")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
