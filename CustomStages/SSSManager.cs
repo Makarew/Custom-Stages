@@ -22,27 +22,12 @@ namespace diorama
     internal class SSSManager : MonoBehaviour
     {
         public List<StageInfo> originalStages = new List<StageInfo>();
-        //public List<StageInfo> newStages = new List<StageInfo>();
         public List<StageData> newStages = new List<StageData>();
         public List<String> locations = new List<String>();
-
-        //public List<StageSelectButton> stageButtons = new List<StageSelectButton>();
-
-        public int page = 0;
-        private int maxPages = 1;
-
-        private TMP_Text text;
 
         private void Start()
         {
             if (originalStages.Count > 0) return;
-
-            //stageButtons.Add(GetStageButton("MoonlitGates"));
-            //stageButtons.Add(GetStageButton("Gangtown"));
-            //stageButtons.Add(GetStageButton("MidnightRose"));
-            //stageButtons.Add(GetStageButton("IdolShowdown"));
-            //stageButtons.Add(GetStageButton("AquaMarine"));
-            //stageButtons.Add(GetStageButton("EternityBright"));
 
             StageSelectController ssc = GetComponent<StageSelectController>();
 
@@ -58,7 +43,7 @@ namespace diorama
             originalStages.Add(stages[4]);
             originalStages.Add(stages[5]);
 
-            string[] allStageDirectories = Directory.GetFiles(Path.Combine(MelonHandler.PluginsDirectory, "StageBackgrounds"), "mod.json", SearchOption.AllDirectories);
+            string[] allStageDirectories = Directory.GetFiles(Path.Combine(MelonHandler.PluginsDirectory, "Stages"), "mod.json", SearchOption.AllDirectories);
 
             foreach (string dir in allStageDirectories)
             {
@@ -74,24 +59,9 @@ namespace diorama
                 stages.Add(si);
             }
 
-            maxPages = Mathf.CeilToInt(Convert.ToSingle(allStageDirectories.Count()) / 6) + 1;
-
-            //GlobalManager.Instance.InputManager.ONUIP1IsPressed += OnInputPressed;
-
-            //text = transform.Find("WholeUI/BottomMenuBar(Clone)/Text (TMP)(Clone)").GetComponent<TMP_Text>();
-            //text.enabled = true;
-            //text.transform.localPosition = new Vector3(0, -70, 0);
-            //text.fontSizeMin = 30;
-            //text.text = "Page 1/" + maxPages;
-
             t = ssc.GetType();
             MethodInfo method = t.GetMethod("UpdateButtonIndexes", BindingFlags.NonPublic | BindingFlags.Instance);
             method.Invoke(ssc, new object[] {  });
-        }
-
-        private void OnDestroy()
-        {
-            //GlobalManager.Instance.InputManager.ONUIP1IsPressed -= OnInputPressed;
         }
 
         private StageInfo GetStageInfo(StageSelectButton stage)
@@ -136,77 +106,6 @@ namespace diorama
 
             return si;
         }
-
-        //private void OnInputPressed(GameInput input)
-        //{
-        //    if (input == GameInput.RT) ChangePage(true);
-        //    else if (input == GameInput.LT) ChangePage(false);
-        //}
-
-        //public void ChangePage(bool isRight)
-        //{
-        //    if (isRight) page++;
-        //    else page--;
-
-        //    if (page < 0) page = maxPages - 1;
-        //    else if (page >= maxPages) page = 0;
-
-        //    System.Type t = stageButtons[0].GetType();
-        //    if (page == 0)
-        //    {
-        //        t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[0], new object[] { originalStages[0] });
-        //        t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[1], new object[] { originalStages[1] });
-        //        t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[2], new object[] { originalStages[2] });
-        //        t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[3], new object[] { originalStages[3] });
-        //        t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[4], new object[] { originalStages[4] });
-        //        t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[5], new object[] { originalStages[5] });
-
-        //        foreach(StageSelectButton button in stageButtons)
-        //        {
-        //            button.GetComponent<StageTag>().location = "";
-        //        }
-        //    } else
-        //    {
-        //        int cStage = (page - 1) * 6;
-
-        //        for (int i = 0; i < 6; i++)
-        //        {
-        //            if (newStages.Count() > cStage)
-        //            {
-        //                t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[i], new object[] { newStages[cStage].si });
-        //                stageButtons[i].GetComponent<StageTag>().location = newStages[cStage].location;
-        //                cStage++;
-        //            }
-        //            else
-        //            {
-        //                t.GetProperty("StageInfo").SetMethod.Invoke(stageButtons[i], new object[] { originalStages[i] });
-        //                stageButtons[i].GetComponent<StageTag>().location = "";
-        //            }
-        //        }
-        //    }
-
-        //    System.Type q = stageButtons[0].GetComponent<MusicPreviewHelper>().GetType();
-        //    MethodInfo method = q.GetMethod("Awake", BindingFlags.NonPublic | BindingFlags.Instance);
-        //    method.Invoke(stageButtons[0].GetComponent<MusicPreviewHelper>(), new object[] { });
-        //    method.Invoke(stageButtons[1].GetComponent<MusicPreviewHelper>(), new object[] { });
-        //    method.Invoke(stageButtons[2].GetComponent<MusicPreviewHelper>(), new object[] { });
-        //    method.Invoke(stageButtons[3].GetComponent<MusicPreviewHelper>(), new object[] { });
-        //    method.Invoke(stageButtons[4].GetComponent<MusicPreviewHelper>(), new object[] { });
-        //    method.Invoke(stageButtons[5].GetComponent<MusicPreviewHelper>(), new object[] { });
-
-
-        //    stageButtons[0].transform.Find("ButtonMask/ButtonPreview").GetComponent<Image>().sprite = stageButtons[0].StageInfo.StageImage;
-        //    stageButtons[1].transform.Find("ButtonMask/ButtonPreview").GetComponent<Image>().sprite = stageButtons[1].StageInfo.StageImage;
-        //    stageButtons[2].transform.Find("ButtonMask/ButtonPreview").GetComponent<Image>().sprite = stageButtons[2].StageInfo.StageImage;
-        //    stageButtons[3].transform.Find("ButtonMask/ButtonPreview").GetComponent<Image>().sprite = stageButtons[3].StageInfo.StageImage;
-        //    stageButtons[4].transform.Find("ButtonMask/ButtonPreview").GetComponent<Image>().sprite = stageButtons[4].StageInfo.StageImage;
-        //    stageButtons[5].transform.Find("ButtonMask/ButtonPreview").GetComponent<Image>().sprite = stageButtons[5].StageInfo.StageImage;
-
-        //    GetComponent<ISUIElementsHandler>().CurrentSelectedElement.gameObject.GetComponent<ISButton>().OnSelect();
-
-
-        //    text.text = "Page " + (page + 1) + "/" + maxPages;
-        //}
 
         private List<StageInfo.StageSongData> CreateSongData(string path)
         {
